@@ -9,7 +9,7 @@ import Protect from './Protect';
 function App() {
   return (
     <div className="App">
-      <BrowserRouter basename='/quiz-app'>
+      <BrowserRouter>
         <Routes>
           <Route exact path='/' element={<Login />} />
           <Route path='/category' element={<Protect><Category /></Protect>} />
