@@ -11,7 +11,7 @@ import SkipNextOutlinedIcon from '@mui/icons-material/SkipNextOutlined';
 import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
 import ReplayOutlinedIcon from '@mui/icons-material/ReplayOutlined';
 import Lottie from "lottie-react";
-import sandClock from '../components/sandClock_animation.json'
+import sandClock from '../components/other/sandClock_animation.json'
 
 function Quiz() {
     const [data, setData] = useState([])
@@ -19,7 +19,7 @@ function Quiz() {
     const [selectedOption, setSelectedOption] = useState(null);
     const [score, setScore] = useState(0);
     const [result, setResult] = useState(false);
-    const [timeLeft, setTimeLeft] = useState(60);
+    const [timeLeft, setTimeLeft] = useState(90);
     const params = useParams();
     let token = localStorage.getItem('token')
     const navigate = useNavigate()
@@ -31,16 +31,6 @@ function Quiz() {
             setData(res.data.data)
             // console.log(res);
         } catch (error) {
-            // toast.error(error.message, {
-            //     position: "top-left",
-            //     autoClose: 1500,
-            //     hideProgressBar: false,
-            //     closeOnClick: true,
-            //     pauseOnHover: true,
-            //     draggable: true,
-            //     progress: undefined,
-            //     theme: "dark",
-            // });
             console.log(error);
         }
     }
@@ -85,15 +75,12 @@ function Quiz() {
         startTimer();
     }, [timeLeft]);
 
-    // console.log(selectedOption);
-    // console.log(score);
-    // console.log(currentIndex);
     return (
         <>
             <Navbarr />
             <div className='quiz-bg '>
                 <div className="container relative text-white">
-                    <h2 className='text-3xl md:text-5xl font-semibold text-center py-4 md:py-8 text-white'>Choose correct answer</h2>
+                    <h2 className='text-3xl md:text-4xl lg:text-5xl  font-semibold text-center py-2 md:py-3 lg:py-4 text-white'>Choose correct answer</h2>
 
                     {result ? // quiz result page or questions page
                         <div className="result-container">
@@ -106,15 +93,16 @@ function Quiz() {
                         tenQuestions.length > 0 ?
                             <>
                                 <div className='w-4/5 mx-auto'>
-                                    <div className='flex justify-end items-center'>
-                                        {/* <img src={sandClock} alt="" width={50} /> */}
+                                    <div className='flex md:justify-end items-center -mt-2 md:mt-0 justify-center'>
                                         <div className='w-12'>
                                             <Lottie animationData={sandClock} loop={true} />
                                         </div>
-                                        <span className='text-xl'>Time left: {timeLeft} seconds</span>
+                                        <span className='text-sm md:text-base'>Time left: {timeLeft} seconds</span>
                                     </div>
-                                    <span className='text-lg p-1.5 bg-slate-300 text-black rounded'>{currentIndex + 1} out of 10.</span>
-                                    <h1 className='text-2xl md:text-3xl font-medium mt-4 mb-5'> {tenQuestions[currentIndex].question}</h1>
+                                    <div className='mt-2'>
+                                        <span className='text-base md:text-lg p-1.5 bg-slate-300 text-black rounded '>{currentIndex + 1} out of 10.</span>
+                                    </div>
+                                    <h1 className='text-xl md:text-2xl lg:text-3xl font-medium mt-4 mb-5'> {tenQuestions[currentIndex].question}</h1>
                                     <FormControl>
                                         <RadioGroup className='ml-4' name="radio-buttons-group" value={selectedOption} onChange={handleOptionChange}>
                                             {tenQuestions[currentIndex].options.map((option, index) => (
