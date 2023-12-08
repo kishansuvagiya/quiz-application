@@ -68,7 +68,7 @@ function LoginSignup() {
             console.log(res);
 
         } catch (error) {
-            toast.error(error.message, {
+            toast.error(error.response.data.message, {
                 position: "bottom-center",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -104,7 +104,7 @@ function LoginSignup() {
 
         }
         catch (error) {
-            toast.error(error.message, {
+            toast.error(error.response.data.message, {
                 position: "bottom-center",
                 autoClose: 3000,
                 hideProgressBar: false,
