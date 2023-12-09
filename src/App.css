@@ -25,20 +25,10 @@
 /* -------------------- mui radio button -------------------------- */
 .options-css {
     font-size: 20px;
-    width: 870px;
+    width: 100%;
 }
 
-@media only screen and (max-width: 768px) {
-    .options-css {
-        width: 470px;
-    }
-    
-}
 @media only screen and (max-width: 425px) {
-    .options-css {
-        font-size: 18px;
-        width: 270px;
-    } 
     /* //------------------ loader css in mobile view */
     .loader {
         top: 180px !important;
@@ -46,12 +36,7 @@
     }
     
 }
-@media only screen and (max-width: 320px) {
-    .options-css {
-        font-size: 17px;
-        width: 220px;
-    }
-}
+
 
 .options-css {
     margin-bottom: 10px;

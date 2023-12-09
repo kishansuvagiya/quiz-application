@@ -7,7 +7,7 @@ function SkeletonCard() {
             <div className='h-36 rounded-lg'>
                 <Skeleton height={140}/>
             </div>
-            <h2 className='text-center mt-2'><Skeleton width={135}/></h2>
+            <h2 className='mt-2'><Skeleton /></h2>
         </div>
     )
 }

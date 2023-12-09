@@ -12,6 +12,7 @@ function Category() {
     const allCategory = async () => {
         try {
             const res = await axios.get('https://quiz-api-y0nx.onrender.com/category', {
+            // const res = await axios.get('http://localhost:4002/category', {
                 headers: { Authorization: token }
             })
             setcat(res.data.data)
@@ -48,7 +49,7 @@ function Category() {
                             cat.map((item) => {
                                 return (
                                     <div onClick={() => gotoQuiz(item)}>
-                                        <div className=' h-36 rounded-lg overflow-hidden shadow-xl hover:scale-105  duration-500 cursor-pointer '>
+                                        <div className='h-36 rounded-lg overflow-hidden shadow-xl hover:scale-105  duration-500 cursor-pointer '>
                                             <img src={item.image} alt="" className='w-full h-full' />
                                         </div>
                                         <h2 className='rise text-center'> {item.name}</h2>

@@ -175,3 +175,6 @@ section .login-container.active .signinBx .imgBx {
     transition: transform 1.1s ease-in-out;
     transition-delay: 0.4s;
 }
+.errormsg{
+  color: red;
+}
