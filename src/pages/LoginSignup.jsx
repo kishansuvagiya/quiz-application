@@ -12,7 +12,7 @@ import signup from '../components/other/signup.svg'
 const SignupSchema = Yup.object().shape({
     fullname: Yup.string()
         .min(2, 'Too Short!')
-        .max(10, 'Too Long!')
+        .max(30, 'Too Long!')
         .required('Fullname is Required'),
     email: Yup.string().email()
         .required('Email is Required'),
