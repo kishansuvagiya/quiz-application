@@ -27,7 +27,6 @@ function Quiz() {
     const allData = async () => {
         try {
             const res = await axios.get('https://quiz-api-y0nx.onrender.com/quiz', {
-                // const res = await axios.get('http://localhost:4002/quiz', {
                 headers: { Authorization: token }
             })
             setData(res.data.data)
@@ -79,11 +78,10 @@ function Quiz() {
             if (timeLeft > 0) {
                 setTimeLeft(prevTime => prevTime - 1);
             } else {
-                // Time is up, you can handle the end of the quiz here
                 setResult(true)
                 console.log('Time is up!');
             }
-        }, 1000); // Update every 1000 milliseconds (1 second)
+        }, 1000);
     };
     useEffect(() => {
         startTimer();

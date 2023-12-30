@@ -4,6 +4,7 @@
     animation: rise 2s ease-in-out 0.5s forwards;
     font-size: 2rem;
 }
+
 @media only screen and (max-width: 425px) {
     .rise {
         text-shadow: -0.01em -0.01em 0.01em #000;
@@ -29,12 +30,13 @@
 }
 
 @media only screen and (max-width: 425px) {
+
     /* //------------------ loader css in mobile view */
     .loader {
         top: 180px !important;
         left: 47% !important;
     }
-    
+
 }
 
 
@@ -107,5 +109,43 @@
 
     100% {
         transform: rotate(360deg);
+    }
+}
+
+.rotate {
+    animation: rotate 2.5s infinite;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    10% {
+        transform: rotate(14deg);
+    }
+
+    20% {
+        transform: rotate(-8deg);
+    }
+
+    30% {
+        transform: rotate(14deg);
+    }
+
+    40% {
+        transform: rotate(-4deg);
+    }
+
+    50% {
+        transform: rotate(10deg);
+    }
+
+    60% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
     }
 }

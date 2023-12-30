@@ -44,15 +44,14 @@ export default function Navbarr() {
             edge="start"
             color="inherit"
             aria-label="menu"
-            sx={{ mr: 2 }}
           >
-            <MenuIcon />
+            <i className="fa-solid fa-feather" ></i>
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} className='cursor-pointer text-base md:text-xl' onClick={() => navigate('/category')}>
             Quiz App
           </Typography>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} className='hidden md:block'>
-            <WavingHandIcon /> Hello {user}
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} className='hidden md:block capitalize'>
+            <WavingHandIcon className='rotate' /> Hello {user}
           </Typography>
           <Button variant='contained' className='bg-slate-900' onClick={logout} size={isSmallScreen ? 'small' : 'large'} endIcon={<LogoutIcon />}> Logout </Button>
         </Toolbar>

@@ -4,7 +4,7 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import login from '../components/other/login.svg'
 import signup from '../components/other/signup.svg'
@@ -37,6 +37,7 @@ const loginSchema = Yup.object().shape({
 
 function LoginSignup() {
     const navigate = useNavigate()
+    const [isLoading, setIsLoading] = useState(false);
     const [signUpValue, setSignUpValues] = useState({
         username: '',
         email: '',
@@ -48,8 +49,14 @@ function LoginSignup() {
     })
 
     const createNewUser = async (values) => {
+        setIsLoading(true);
         try {
             const res = await axios.post('https://quiz-api-y0nx.onrender.com/user/signup', values)
+            if (res.data.status == 'success') {
+                navigate('/category')
+            }
+            localStorage.setItem('token', res.data.token)
+            localStorage.setItem('user', res.data.data.username)
             toast.success(res.data.message, {
                 position: "bottom-center",
                 autoClose: 3000,
@@ -60,13 +67,7 @@ function LoginSignup() {
                 progress: undefined,
                 theme: "dark",
             });
-            setTimeout(() => {
-                navigate('/category')
-            }, 1000)
-            localStorage.setItem('token', res.data.token)
-            localStorage.setItem('user', res.data.data.username)
             console.log(res);
-
         } catch (error) {
             toast.error(error.response.data.message, {
                 position: "bottom-center",
@@ -80,10 +81,19 @@ function LoginSignup() {
             });
             console.log(error);
         }
+        finally {
+            setIsLoading(false);
+        }
     }
     const loginUser = async (values) => {
+        setIsLoading(true);
         try {
             const res = await axios.post('https://quiz-api-y0nx.onrender.com/user/login', values)
+            if (res.data.status == 'success') {
+                navigate('/category')
+            }
+            localStorage.setItem('token', res.data.token)
+            localStorage.setItem('user', res.data.data.username)
             toast.success(res.data.message, {
                 position: "bottom-center",
                 autoClose: 3000,
@@ -93,15 +103,8 @@ function LoginSignup() {
                 draggable: true,
                 progress: undefined,
                 theme: "dark",
-                // icon: <LoginIcon sx={{ color: lightGreen['A400'] }} />
             });
-            // setTimeout(() => {
-            navigate('/category')
-            // }, 1000)
-            localStorage.setItem('token', res.data.token)
-            localStorage.setItem('user', res.data.data.username)
             // console.log(res.data.token);
-
         }
         catch (error) {
             toast.error(error.response.data.message, {
@@ -115,6 +118,9 @@ function LoginSignup() {
                 theme: "dark",
             });
             console.log(error);
+        }
+        finally {
+            setIsLoading(false);
         }
     }
 
@@ -149,14 +155,17 @@ function LoginSignup() {
                                     <div className='errormsg'><ErrorMessage name='email' /></div>
                                     <Field type="password" placeholder="Password" name='password' />
                                     <div className='errormsg'><ErrorMessage name='password' /></div>
-                                    {/* <a href="#">Forgot your password?</a> */}
-                                    <input type="submit" value="Login" />
+                                    {isLoading ?
+                                        <button className='loading-btn' disabled>
+                                            <i className="fa fa-spinner fa-spin"></i>Loading
+                                        </button> :
+                                    <button className='btn'>Login</button>}
                                     <p class="signup">
-                                        Don't have an account ?
-                                        <Link onClick={toggle}>Sign Up.</Link>
+                                        Don't have an account ? 
+                                        <Link onClick={toggle}> Sign Up.</Link>
                                     </p>
                                 </Form>
-                                </Formik>
+                            </Formik>
                         </div>
                     </div>
 
@@ -184,10 +193,14 @@ function LoginSignup() {
                                     <div className='errormsg'><ErrorMessage name='email' /></div>
                                     <Field type="password" placeholder="Password" name='password' />
                                     <div className='errormsg'><ErrorMessage name='password' /></div>
-                                    <input type="submit" name="" value="Sign Up" />
+                                    {isLoading ?
+                                        <button className='loading-btn' disabled>
+                                            <i className="fa fa-spinner fa-spin"></i>Loading
+                                        </button> :
+                                        <button className='btn'>Signup</button>}
                                     <p class="signup">
                                         Already have an account ?
-                                        <Link onClick={toggle}>Sign in.</Link>
+                                        <Link onClick={toggle}> Sign in.</Link>
                                     </p>
                                 </Form>
                             </Formik>
