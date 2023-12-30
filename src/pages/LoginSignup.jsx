@@ -10,7 +10,7 @@ import login from '../components/other/login.svg'
 import signup from '../components/other/signup.svg'
 
 const SignupSchema = Yup.object().shape({
-    username: Yup.string()
+    fullname: Yup.string()
         .min(2, 'Too Short!')
         .max(10, 'Too Long!')
         .required('Username is Required'),
@@ -39,7 +39,7 @@ function LoginSignup() {
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false);
     const [signUpValue, setSignUpValues] = useState({
-        username: '',
+        fullname: '',
         email: '',
         password: '',
     })
@@ -56,7 +56,7 @@ function LoginSignup() {
                 navigate('/category')
             }
             localStorage.setItem('token', res.data.token)
-            localStorage.setItem('user', res.data.data.username)
+            localStorage.setItem('user', res.data.data.fullname)
             toast.success(res.data.message, {
                 position: "bottom-center",
                 autoClose: 3000,
@@ -93,7 +93,7 @@ function LoginSignup() {
                 navigate('/category')
             }
             localStorage.setItem('token', res.data.token)
-            localStorage.setItem('user', res.data.data.username)
+            localStorage.setItem('user', res.data.data.fullname)
             toast.success(res.data.message, {
                 position: "bottom-center",
                 autoClose: 3000,
@@ -179,7 +179,7 @@ function LoginSignup() {
                                     await createNewUser(values)
                                     // action.resetForm()
                                     setSignUpValues({
-                                        username: '',
+                                        fullname: '',
                                         email: '',
                                         password: '',
                                     })
@@ -187,8 +187,8 @@ function LoginSignup() {
                             >
                                 <Form action="" onsubmit="return false;">
                                     <h2>Create an account</h2>
-                                    <Field type="text" placeholder="Username" name='username' />
-                                    <div className='errormsg'><ErrorMessage name='username' /></div>
+                                    <Field type="text" placeholder="Username" name='fullname' />
+                                    <div className='errormsg'><ErrorMessage name='fullname' /></div>
                                     <Field type="email" placeholder="Email" name='email' />
                                     <div className='errormsg'><ErrorMessage name='email' /></div>
                                     <Field type="password" placeholder="Password" name='password' />
