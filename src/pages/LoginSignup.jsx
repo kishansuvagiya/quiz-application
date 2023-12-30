@@ -14,8 +14,10 @@ const SignupSchema = Yup.object().shape({
         .min(2, 'Too Short!')
         .max(30, 'Too Long!')
         .required('Fullname is Required'),
-    email: Yup.string().email()
-        .required('Email is Required'),
+    email: Yup.string()
+        .email('Invalid email format')
+        .required('Email is Required')
+        .trim(),
     password: Yup.string()
         .min(6, 'Minimum 6 character required')
         .required('Password is Required'),
@@ -159,9 +161,9 @@ function LoginSignup() {
                                         <button className='loading-btn' disabled>
                                             <i className="fa fa-spinner fa-spin"></i>Loading
                                         </button> :
-                                    <button className='btn'>Login</button>}
+                                        <button className='btn'>Login</button>}
                                     <p class="signup">
-                                        Don't have an account ? 
+                                        Don't have an account ?
                                         <Link onClick={toggle}> Sign Up.</Link>
                                     </p>
                                 </Form>
