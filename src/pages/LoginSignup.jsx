@@ -13,7 +13,7 @@ const SignupSchema = Yup.object().shape({
     fullname: Yup.string()
         .min(2, 'Too Short!')
         .max(10, 'Too Long!')
-        .required('Username is Required'),
+        .required('Fullname is Required'),
     email: Yup.string().email()
         .required('Email is Required'),
     password: Yup.string()
@@ -187,7 +187,7 @@ function LoginSignup() {
                             >
                                 <Form action="" onsubmit="return false;">
                                     <h2>Create an account</h2>
-                                    <Field type="text" placeholder="Username" name='fullname' />
+                                    <Field type="text" placeholder="Fullname" name='fullname' />
                                     <div className='errormsg'><ErrorMessage name='fullname' /></div>
                                     <Field type="email" placeholder="Email" name='email' />
                                     <div className='errormsg'><ErrorMessage name='email' /></div>
