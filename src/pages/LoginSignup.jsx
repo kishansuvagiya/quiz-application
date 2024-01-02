@@ -157,6 +157,7 @@ function LoginSignup() {
                                     <div className='errormsg'><ErrorMessage name='email' /></div>
                                     <Field type="password" placeholder="Password" name='password' />
                                     <div className='errormsg'><ErrorMessage name='password' /></div>
+                                    <div className='text-right'><Link to='/forgot-password' className='text-[#677eff] hover:text-[#2b49f5]'>Forgot Password ?</Link></div>
                                     {isLoading ?
                                         <button className='loading-btn' disabled>
                                             <i className="fa fa-spinner fa-spin"></i>Loading
