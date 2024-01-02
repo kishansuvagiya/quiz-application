@@ -159,10 +159,10 @@ function LoginSignup() {
                                     <div className='errormsg'><ErrorMessage name='password' /></div>
                                     <div className='text-right'><Link to='/forgot-password' className='text-[#677eff] hover:text-[#2b49f5]'>Forgot Password ?</Link></div>
                                     {isLoading ?
-                                        <button className='loading-btn' disabled>
+                                        <button className='btn' disabled>
                                             <i className="fa fa-spinner fa-spin"></i>Loading
                                         </button> :
-                                        <button className='btn'>Login</button>}
+                                        <button className='btn btn-hover'>Login</button>}
                                     <p class="signup">
                                         Don't have an account ?
                                         <Link onClick={toggle}> Sign Up.</Link>
@@ -197,10 +197,10 @@ function LoginSignup() {
                                     <Field type="password" placeholder="Password" name='password' />
                                     <div className='errormsg'><ErrorMessage name='password' /></div>
                                     {isLoading ?
-                                        <button className='loading-btn' disabled>
+                                        <button className='btn' disabled>
                                             <i className="fa fa-spinner fa-spin"></i>Loading
                                         </button> :
-                                        <button className='btn'>Signup</button>}
+                                        <button className='btn btn-hover'>Signup</button>}
                                     <p class="signup">
                                         Already have an account ?
                                         <Link onClick={toggle}> Sign in.</Link>
