@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import forgotSVG from '../components/other/forgot_password.svg'
 import axios from 'axios';
 
@@ -16,7 +16,9 @@ function ForgotPassword() {
     })
     const [errorMessage, setErrorMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [resendLoading, setResendLoading] = useState(false);
     const [validateOTP, setValidateOTP] = useState(false);
+    const [resendbtn, setResendbtn] = useState(true);
 
     // ________________ send OTP ________________
     const dataHandler = (e) => {
@@ -26,13 +28,7 @@ function ForgotPassword() {
         })
         setErrorMessage('')
     }
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        if (!data.email) {
-            setErrorMessage('Email is required.')
-            return
-        }
-        setIsLoading(true)
+    const sendOTP = async () => {
         try {
             const res = await axios.post('https://quiz-api-y0nx.onrender.com/user/forgot-password', data)
             if (res.data.status == 'success') {
@@ -65,8 +61,17 @@ function ForgotPassword() {
         }
         finally {
             setIsLoading(false)
+            setResendLoading(false)
         }
-
+    }
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        if (!data.email) {
+            setErrorMessage('Email is required.')
+            return
+        }
+        setIsLoading(true)
+        await sendOTP()
     }
 
     // ________________ verify OTP and new password ________________
@@ -120,6 +125,16 @@ function ForgotPassword() {
         }
 
     }
+    const resendOTP = async () => {
+        setResendLoading(true)
+        await sendOTP()
+        setResendbtn(true)
+    }
+    useEffect(() => {
+        setTimeout(() => {
+            setResendbtn(false)
+        }, 60000);
+    }, [resendbtn])
     return (
         <div>
             <section>
@@ -137,10 +152,10 @@ function ForgotPassword() {
                                         <span>{errorMessage}</span>
                                     </div>}
                                     {isLoading ?
-                                        <button className='loading-btn' disabled>
+                                        <button className='btn' disabled>
                                             <i className="fa fa-spinner fa-spin"></i>Loading
                                         </button> :
-                                        <button className='btn'>Submit</button>}
+                                        <button className='btn btn-hover'>Submit</button>}
                                     <p class="signup">
                                         Remember Password ?
                                         <Link to='/'> Sign in.</Link>
@@ -157,10 +172,20 @@ function ForgotPassword() {
                                         <span>{errorMessage}</span>
                                     </div>}
                                     {isLoading ?
-                                        <button className='loading-btn' disabled>
+                                        <button className='btn' disabled>
                                             <i className="fa fa-spinner fa-spin"></i>Loading
                                         </button> :
-                                        <button className='btn'>Submit</button>}
+                                        <button className='btn btn-hover'>Submit</button>}
+                                    {resendLoading ?
+                                        <button className='resendotp-btn' disabled>
+                                            <i className="fa fa-spinner fa-spin"></i>Loading
+                                        </button> :
+                                        <button
+                                            className={resendbtn ? 'resendotp-btn bg-gray-500 cursor-not-allowed' : 'resendotp-btn resend-hover'}
+                                            onClick={resendOTP}
+                                            disabled={resendbtn}>
+                                            Resend OTP
+                                        </button>}
                                     <p class="signup">
                                         Remember Password ?
                                         <Link to='/'> Sign in.</Link>
