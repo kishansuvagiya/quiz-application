@@ -57,10 +57,12 @@ section .login-container .user .formBx {
   height: 100%;
   background: #fff;
   display: flex;
-  justify-content: center;
   align-items: center;
   padding: 40px;
   transition: 0.5s;
+}
+section .login-container .user .formBx form{
+  width: 100%;
 }
 
 section .login-container .user .formBx form h2 {

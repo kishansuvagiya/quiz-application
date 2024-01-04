@@ -18,8 +18,8 @@ function ForgotPassword() {
     const [isLoading, setIsLoading] = useState(false);
     const [resendLoading, setResendLoading] = useState(false);
     const [validateOTP, setValidateOTP] = useState(false);
-    const [resendbtn, setResendbtn] = useState(true);
-
+    const [resendbtn, setResendbtn] = useState(false);
+    const [timeLeft, setTimeLeft] = useState();
     // ________________ send OTP ________________
     const dataHandler = (e) => {
         const { name, value } = e.target
@@ -35,6 +35,7 @@ function ForgotPassword() {
                 setValidateOTP(true)
                 setNewData({ email: data.email })
                 setErrorMessage('')
+                setTimeLeft(120)
             }
             toast.success(res.data.message, {
                 position: "bottom-center",
@@ -128,13 +129,23 @@ function ForgotPassword() {
     const resendOTP = async () => {
         setResendLoading(true)
         await sendOTP()
-        setResendbtn(true)
+        setResendbtn(false)
+        setTimeLeft(120)
     }
-    useEffect(() => {
+    const startTimer = () => {
         setTimeout(() => {
-            setResendbtn(false)
-        }, 60000);
-    }, [resendbtn])
+            if (timeLeft > 0) {
+                setTimeLeft(prevTime => prevTime - 1);
+            } else {
+                setResendbtn(true)
+            }
+        }, 1000);
+    };
+    useEffect(() => {
+        if (validateOTP) {
+            startTimer();
+        }
+    }, [timeLeft])
     return (
         <div>
             <section>
@@ -176,16 +187,20 @@ function ForgotPassword() {
                                             <i className="fa fa-spinner fa-spin"></i>Loading
                                         </button> :
                                         <button className='btn btn-hover'>Submit</button>}
-                                    {resendLoading ?
-                                        <button className='resendotp-btn' disabled>
-                                            <i className="fa fa-spinner fa-spin"></i>Loading
-                                        </button> :
-                                        <button
-                                            className={resendbtn ? 'resendotp-btn bg-gray-500 cursor-not-allowed' : 'resendotp-btn resend-hover'}
-                                            onClick={resendOTP}
-                                            disabled={resendbtn}>
-                                            Resend OTP
-                                        </button>}
+                                    {
+                                        resendbtn ?
+                                            resendLoading ?
+                                                <button className='resendotp-btn' disabled>
+                                                    <i className="fa fa-spinner fa-spin"></i>Loading
+                                                </button> :
+                                                <button
+                                                    className='resendotp-btn resend-hover'
+                                                    onClick={resendOTP}>
+                                                    Resend OTP
+                                                </button> :
+                                            <p className='text-sm text-gray-500 mt-3'>Resend OTP ({timeLeft > 0 ? timeLeft : 0}s)</p>
+                                    }
+
                                     <p class="signup">
                                         Remember Password ?
                                         <Link to='/'> Sign in.</Link>
